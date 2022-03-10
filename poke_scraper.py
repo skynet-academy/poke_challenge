@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import pandas as pd
+import os
+import pathlib import Path
 
 url = "https://bulbapedia.bulbagarden.net"
 pokedex = "/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number"
@@ -12,9 +14,13 @@ generations = generations[:-1]
 generations_tables = [span.parent.find_next('table') for span in generations]
 all_pokemos = []
 
+if(not Path('./assets').exists()):
+    os.mkdir('./assets')
+
 def getting_attributes(url, url_pokemon):
     poke_request = requests.get(url + url_pokemon)
     pokemon_html = BeautifulSoup(poke_request.text, "html.parser")
+    #poke_img = pokemon_html.find('img', alt
     span_color = pokemon_html.find('span', string='Pokédex color').parent.parent
     color = span_color.find_next('table').text.strip().split("Other forms may have other colors.")[0]
     ability1 = 0
