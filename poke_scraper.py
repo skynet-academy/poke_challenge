@@ -3,7 +3,7 @@ import requests
 import re
 import pandas as pd
 import os
-import pathlib import Path
+from pathlib import Path
 
 url = "https://bulbapedia.bulbagarden.net"
 pokedex = "/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number"
@@ -17,10 +17,16 @@ all_pokemos = []
 if(not Path('./assets').exists()):
     os.mkdir('./assets')
 
-def getting_attributes(url, url_pokemon):
+def getting_attributes(url, url_pokemon, name):
     poke_request = requests.get(url + url_pokemon)
     pokemon_html = BeautifulSoup(poke_request.text, "html.parser")
-    #poke_img = pokemon_html.find('img', alt
+
+    poke_src = pokemon_html.find('a', class_='image').find('img')['src']
+    image = open(f"./assets/images/{name}.png", 'wb')
+    image_response = requests.get('https:' + poke_src)
+    image.write(image_response.content)
+    image.close()
+
     span_color = pokemon_html.find('span', string='Pokédex color').parent.parent
     color = span_color.find_next('table').text.strip().split("Other forms may have other colors.")[0]
     ability1 = 0
@@ -97,6 +103,7 @@ for table in generations_tables:
         pokemon['CODE'] = tdata[0].string.strip()
         pokemon['SERIAL'] = tdata[1].string.strip()
         pokemon['NAME'] = tdata[2].findChild().text
+        name = tdata[2].findChild().text
         pokemon['TYPE1'] = tdata[3].findChild().text
         try:
             pokemon['TYPE2'] = tdata[4].findChild().text
@@ -104,7 +111,7 @@ for table in generations_tables:
             pokemon['TYPE2'] = 0
         
         url_pokemon = tdata[2].findChild()['href']
-        attributes = getting_attributes(url, url_pokemon)
+        attributes = getting_attributes(url, url_pokemon, name)
 
         pokemon['COLOR'] = attributes[0]
         pokemon['ABILITY1'] = attributes[1]
