@@ -75,7 +75,7 @@ navbar = dbc.Navbar(
                     dbc.Col(
                         [
                             html.Label("POKEMONS", id="label1"),
-                            html.Label("Explore the differences between of different generations", className="label2"),
+                            html.Label("Explore the differences between all pokemons", className="label2"),
                             html.Br(),
                             html.Label("Poke dash board", className="label2", style={"marginBottom": ".34rem"}),
                         ],
@@ -83,8 +83,7 @@ navbar = dbc.Navbar(
                     ),
                 ],
                 align="between",
-            ),
-        ),
+            ),),
     ],
 )
 
@@ -120,19 +119,19 @@ controls_player_2 = dbc.Card(
 cards_1 = dbc.Card(
     [
         dbc.Card(
-            dbc.CardBody([html.H4("Type:", className="card-title1"), html.P(id="P_position1", className="card_info1")]),
+            dbc.CardBody([html.H6("Type: ", className="card-title1"), html.P(id="P_position1", className="card_info1")], className="cardData"),
             className="attributes_card",
         ),
         dbc.Card(
-            dbc.CardBody([html.H4("Ability:", className="card-title1"), html.P(id="P_value1", className="card_info1")]),
+            dbc.CardBody([html.H6("Ability: ", className="card-title1"), html.P(id="P_value1", className="card_info1")], className="cardData"),
             className="attributes_card",
         ),
         dbc.Card(
-            dbc.CardBody([html.H4("Attack:", className="card-title1"), html.P(id="P_skill1", className="card_info1")]),
+            dbc.CardBody([html.H6("Attack: ", className="card-title1"), html.P(id="P_skill1", className="card_info1")], className="cardData"),
             className="attributes_card",
         ),
         dbc.Card(
-            dbc.CardBody([html.H4("Deffence:", className="card-title1"), html.P(id="P_foot1", className="card_info1")]),
+            dbc.CardBody([html.H6("Deffence: ", className="card-title1"), html.P(id="P_foot1", className="card_info1")], className="cardData"),
             className="attributes_card",
         ),
     ]
@@ -141,19 +140,19 @@ cards_1 = dbc.Card(
 cards_2 = dbc.Card(
     [
         dbc.Card(
-            dbc.CardBody([html.H4("Type:", className="card-title2"), html.P(id="P_position2", className="card_info2")]),
+            dbc.CardBody([html.H6("Type: ", className="card-title2"), html.P(id="P_position2", className="card_info2")], className="cardData"),
             className="attributes_card",
         ),
         dbc.Card(
-            dbc.CardBody([html.H4("Ability:", className="card-title2"), html.P(id="P_value2", className="card_info2")]),
+            dbc.CardBody([html.H6("Ability: ", className="card-title2"), html.P(id="P_value2", className="card_info2")], className="cardData"),
             className="attributes_card",
         ),
         dbc.Card(
-            dbc.CardBody([html.H4("Attack:", className="card-title2"), html.P(id="P_skill2", className="card_info2")]),
+            dbc.CardBody([html.H6("Attack: ", className="card-title2"), html.P(id="P_skill2", className="card_info2")], className="cardData"),
             className="attributes_card",
         ),
         dbc.Card(
-            dbc.CardBody([html.H4("Deffence:", className="card-title2"), html.P(id="P_foot2", className="card_info2")]),
+            dbc.CardBody([html.H6("Deffence: ", className="card-title2"), html.P(id="P_foot2", className="card_info2")], className="cardData"),
             className="attributes_card",
         ),
     ]
@@ -191,7 +190,7 @@ tab1_content = (
             dbc.Card(
                 dbc.CardBody(
                     [
-                        html.H1("Pokemon Comparison"),
+                        html.H1("Pokemon Project"),
                         html.Hr(),
                         dbc.Row(
                             [
@@ -324,7 +323,7 @@ def table_pokemons(pokemon1, pokemon2):
                 type="linear",
                 autotypenumbers="strict",
                 autorange=False,
-                range=[30, 100],
+                range=[30, 180],
                 angle=90,
                 showline=False,
                 showticklabels=False,
@@ -390,7 +389,7 @@ def table_pokemons(pokemon1, pokemon2):
             font_size=10,
             )
 
-    barplot1.update_yaxes(range=[1, 100])
+    barplot1.update_yaxes(range=[1, 200])
 
     table_updated2 = poke_data[poke_data["NAME"] == pokemon2].to_dict("records")
 
@@ -430,7 +429,7 @@ def table_pokemons(pokemon1, pokemon2):
         font_color="black",
         font_size=10,
     )
-    barplot2.update_yaxes(range=[1, 100])
+    barplot2.update_yaxes(range=[1, 200])
     
     # cards
     p_pos_1 = poke_data[poke_data["NAME"] == pokemon1]["TYPE1"]

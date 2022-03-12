@@ -1,0 +1,12 @@
+.card-body h1{
+    text-align: center;
+}
+
+.svg-container{
+    margin: auto !important;
+}
+
+.cardData{
+    display: flex;
+}
+
