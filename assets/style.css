@@ -10,3 +10,7 @@
     display: flex;
 }
 
+.navBarclass{
+    display: flex;
+    justify-content: space-evenly;
+}

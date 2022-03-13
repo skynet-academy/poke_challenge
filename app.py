@@ -35,7 +35,6 @@ for i in poke_data.index:
 pokemon_dropdown_left = dcc.Dropdown(id="pokemon1", options=pokemon_options, value="Pikachu")
 pokemon_dropdown_right = dcc.Dropdown(id="pokemon2", options=pokemon_options, value="Raichu")
 
-
 #tables with skills
 
 dashtable_1 = dash_table.DataTable(
@@ -56,7 +55,6 @@ dashtable_2 = dash_table.DataTable(
     style_header={"backgroundColor": "rgb(230, 230, 230)", "fontWeight": "bold"},
 )
 
-
 # app layout
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -75,16 +73,21 @@ navbar = dbc.Navbar(
                     dbc.Col(
                         [
                             html.Label("POKEMONS", id="label1"),
+                            html.Br(),
                             html.Label("Explore the differences between all pokemons", className="label2"),
                             html.Br(),
-                            html.Label("Poke dash board", className="label2", style={"marginBottom": ".34rem"}),
+                            html.Label("Poke dash board", className="label2", style={
+                                "marginBottom": ".34rem"
+                                }),
                         ],
                         width=6,
+                        className="header",
                     ),
                 ],
                 align="between",
             ),),
     ],
+    className="navBarclass",
 )
 
 
@@ -116,48 +119,6 @@ controls_player_2 = dbc.Card(
     className="controls_players",
 )
 
-cards_1 = dbc.Card(
-    [
-        dbc.Card(
-            dbc.CardBody([html.H6("Type: ", className="card-title1"), html.P(id="P_position1", className="card_info1")], className="cardData"),
-            className="attributes_card",
-        ),
-        dbc.Card(
-            dbc.CardBody([html.H6("Ability: ", className="card-title1"), html.P(id="P_value1", className="card_info1")], className="cardData"),
-            className="attributes_card",
-        ),
-        dbc.Card(
-            dbc.CardBody([html.H6("Attack: ", className="card-title1"), html.P(id="P_skill1", className="card_info1")], className="cardData"),
-            className="attributes_card",
-        ),
-        dbc.Card(
-            dbc.CardBody([html.H6("Deffence: ", className="card-title1"), html.P(id="P_foot1", className="card_info1")], className="cardData"),
-            className="attributes_card",
-        ),
-    ]
-)
-
-cards_2 = dbc.Card(
-    [
-        dbc.Card(
-            dbc.CardBody([html.H6("Type: ", className="card-title2"), html.P(id="P_position2", className="card_info2")], className="cardData"),
-            className="attributes_card",
-        ),
-        dbc.Card(
-            dbc.CardBody([html.H6("Ability: ", className="card-title2"), html.P(id="P_value2", className="card_info2")], className="cardData"),
-            className="attributes_card",
-        ),
-        dbc.Card(
-            dbc.CardBody([html.H6("Attack: ", className="card-title2"), html.P(id="P_skill2", className="card_info2")], className="cardData"),
-            className="attributes_card",
-        ),
-        dbc.Card(
-            dbc.CardBody([html.H6("Deffence: ", className="card-title2"), html.P(id="P_foot2", className="card_info2")], className="cardData"),
-            className="attributes_card",
-        ),
-    ]
-)
-
 cards_3 = dbc.Card(
     [
         dbc.Card(
@@ -168,7 +129,7 @@ cards_3 = dbc.Card(
             dbc.CardBody([html.Div("Skills", className="card-title1"), dcc.Graph(id="graph_example_3")]),
             className="attributes_card",
         ),
-    ]
+    ], className="card-rank"
 )
 
 cards_4 = dbc.Card(
@@ -181,7 +142,7 @@ cards_4 = dbc.Card(
             dbc.CardBody([html.Div("Skills", className="card-title2"), dcc.Graph(id="graph_example_4")]),
             className="attributes_card",
         ),
-    ]
+    ], className="card-rank"
 )
 
 tab1_content = (
@@ -217,11 +178,23 @@ tab1_content = (
                         dbc.Row(
                             [
                                 dbc.Col(
-                                    [dashtable_1, html.Br(), cards_1, html.Br(), cards_3],
+                                    [dashtable_1],
                                     sm=6,
                                 ),
                                 dbc.Col(
-                                    [dashtable_2, html.Br(), cards_2, html.Br(), cards_4],
+                                    [dashtable_2],
+                                    sm=6,
+                                ),
+                            ]
+                        ),
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [cards_3],
+                                    sm=6,
+                                ),
+                                dbc.Col(
+                                    [cards_4],
                                     sm=6,
                                 ),
                             ]
@@ -233,8 +206,6 @@ tab1_content = (
     ),
 )
 
-
-
 app.layout = dbc.Container(
     [
         navbar,
@@ -242,7 +213,6 @@ app.layout = dbc.Container(
     ],
     fluid=True
 )
-
 
 @app.callback(
     [
@@ -255,14 +225,6 @@ app.layout = dbc.Container(
         Output("table2", "data"),
         Output("graph_example_2", "figure"),
         Output("graph_example_4", "figure"),
-        Output("P_position1", "children"),
-        Output("P_value1", "children"),
-        Output("P_skill1", "children"),
-        Output("P_foot1", "children"),
-        Output("P_position2", "children"),
-        Output("P_value2", "children"),
-        Output("P_skill2", "children"),
-        Output("P_foot2", "children"),
     ],
     [Input("pokemon1", "value"), Input("pokemon2", "value")],
 )
@@ -453,16 +415,7 @@ def table_pokemons(pokemon1, pokemon2):
         table_updated2,
         gauge2,
         barplot2,
-        p_pos_1,
-        p_value_1,
-        p_skill_1,
-        p_foot_1,
-        p_pos_2,
-        p_value_2,
-        p_skill_2,
-        p_foot_2,
     )
-
 
 if __name__ == "__main__":
     app.run_server(debug=True)
